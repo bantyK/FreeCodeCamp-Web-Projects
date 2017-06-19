@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Local Weather</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,700" rel="stylesheet">
-  </head>
 
-  <body>
-    <div class="main">
-      <div class="container">
-        <p id="main-heading">Local Weather</p>
-        <input type="text" id="location_input">
-        <br>
-        <button id="submit_button">Find Your weather</button>
+<head>
+  <title>Local Weather App</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,700" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main">
+    <div class="container">
+      <p id="main-heading">Local Weather</p>
+      <input type="text" id="location_input">
+      <br>
+      <button id="submit_button">Find Your weather</button>
+    </div>
+    <!-- end container -->
+
+    <div class="result">
+      <figure class="icons">
+        <canvas class="weather-icon" id="clear-day" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="clear-night" width="50" 50 height="50"></canvas>
+        <canvas class="weather-icon" id="partly-cloudy-day" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="partly-cloudy-night" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="cloudy" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="rain" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="sleet" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="snow" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="wind" width="50" height="50"></canvas>
+        <canvas class="weather-icon" id="fog" width="50" height="50"></canvas>
+      </figure>
+
+      <p id="temperature">22.7</p>
+      <br>
+      <div class="info">
+        <p id="place">PUNE, IN</p>
+        <p id="summary">Light Rain</p>
+        <p id="humidity">SW 3.37 M/S</p>
       </div>
     </div>
-    <script src="../js/script.js"></script>
-  </body>
+    <!-- end result -->
+
+  </div>
+  <!-- end main -->
+
+  <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+  <script src="../js/script.js"></script>
+</body>
 
 </html>
