@@ -54,10 +54,12 @@ function getWeatherDataForLocation(data) {
 }
 
 function updateUI(response, data) {
+    displayWeatherIcon(response.weather[0].main.toLowerCase());
     document.getElementById("temp").innerHTML = response.main.temp;
     document.getElementById("place").innerHTML = data.city + ", " + data.country;
     document.getElementById("summary").innerHTML = toTitleCase(response.weather[0].description);
     document.getElementById("humidity").innerHTML = calculateWindDirection(response.wind.deg) + " " + response.wind.speed + " m/s";
+
 }
 
 function toTitleCase(str) {
@@ -81,7 +83,7 @@ function calculateWindDirection(degree) {
 }
 
 function hideAllIcons() {
-    document.getElementById("clear-day").style.display = 'block';
+    document.getElementById("clear-day").style.display = 'none';
     document.getElementById("clear-night").style.display = 'none';
     document.getElementById("partly-cloudy-day").style.display = 'none';
     document.getElementById("partly-cloudy-night").style.display = 'none';
@@ -92,4 +94,8 @@ function hideAllIcons() {
     document.getElementById("wind").style.display = 'none';
     document.getElementById("fog").style.display = 'none';
 
+}
+
+function displayWeatherIcon(iconClass) {
+    document.getElementById(iconClass).style.display = 'block';
 }
