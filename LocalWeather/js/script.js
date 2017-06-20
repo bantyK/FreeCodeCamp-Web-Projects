@@ -54,12 +54,16 @@ function getWeatherDataForLocation(data) {
 }
 
 function updateUI(response, data) {
-    console.log(data.city);
-    console.log(data.country);
-    console.log(response.main.temp);
-    console.log(response.weather[0].description);
-    console.log(response.wind.speed);
-    console.log(calculateWindDirection(response.wind.deg));
+    document.getElementById("temp").innerHTML = response.main.temp;
+    document.getElementById("place").innerHTML = data.city + ", " + data.country;
+    document.getElementById("summary").innerHTML = toTitleCase(response.weather[0].description);
+    document.getElementById("humidity").innerHTML = calculateWindDirection(response.wind.deg) + " " + response.wind.speed + " m/s";
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 function calculateWindDirection(degree) {
