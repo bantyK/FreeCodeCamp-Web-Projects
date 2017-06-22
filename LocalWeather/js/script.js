@@ -1,15 +1,25 @@
-//get the lat,long from ipinfo.io/json
-//query the open weather api
-//http://api.openweathermap.org/data/2.5/weather?lat=18.5333&lon=73.8667&APPID=061f24cf3cde2f60644a8240302983f2&units=metric
-//wind direction - 
-
-
 $(document).ready(function () {
-    var loc; //store latitude and langitude from ipinfo 
 
     var icons = new Skycons({
         "color": "orange"
     });
+
+    var button = document.getElementById("submit_button");
+    button.addEventListener("click", function (event) {
+        buttonClicked();
+    });
+    setIcons(icons);
+    hideAllIcons();
+    getCurrentLocation();
+
+});
+
+function buttonClicked() {
+    var locationEntered = document.getElementById("location_input").value;
+    getDataForLocation(locationEntered);
+}
+
+function setIcons(icons) {
     icons.set("clear-day", Skycons.CLEAR_DAY);
     icons.set("clear-night", Skycons.CLEAR_NIGHT);
     icons.set("partly-cloudy-day", Skycons.PARTLY_CLOUDY_DAY);
@@ -21,28 +31,21 @@ $(document).ready(function () {
     icons.set("wind", Skycons.WIND);
     icons.set("fog", Skycons.FOG);
     icons.play();
-
-    hideAllIcons();
-
-    getCurrentLocation();
-    console.log(loc);
-});
-
-
+}
 function getCurrentLocation() {
     $.ajax({
         url: "http://ipinfo.io/json",
         cache: false,
         success: function (data) {
-            getWeatherDataForLocation(data);
+            getWeatherDataForCoordinates(data);
         }
     });
 }
 
-function getWeatherDataForLocation(data) {
+function getWeatherDataForCoordinates(data) {
     var latitude = data.loc.split(",")[0];
     var longitude = data.loc.split(",")[1];
-    var weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&APPID=061f24cf3cde2f60644a8240302983f2&units=metric";
+    var weatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=061f24cf3cde2f60644a8240302983f2&units=metric";
     console.log(weatherURL);
     $.ajax({
         url: weatherURL,
@@ -53,10 +56,24 @@ function getWeatherDataForLocation(data) {
     });
 }
 
+function getDataForLocation(location) {
+    var apiURL = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=061f24cf3cde2f60644a8240302983f2";
+    $.ajax({
+        url: apiURL,
+        success: function (response) {
+            updateUI(response, location);
+        }
+    });
+}
+
 function updateUI(response, data) {
     displayWeatherIcon(response.weather[0].main.toLowerCase());
     document.getElementById("temp").innerHTML = response.main.temp;
-    document.getElementById("place").innerHTML = data.city + ", " + data.country;
+    if (data.constructor === "".constructor) {
+        document.getElementById("place").innerHTML = data;
+    } else {
+        document.getElementById("place").innerHTML = data.city + ", " + data.country;
+    }
     document.getElementById("summary").innerHTML = toTitleCase(response.weather[0].description);
     document.getElementById("humidity").innerHTML = calculateWindDirection(response.wind.deg) + " " + response.wind.speed + " m/s";
 
@@ -93,7 +110,6 @@ function hideAllIcons() {
     document.getElementById("snow").style.display = 'none';
     document.getElementById("wind").style.display = 'none';
     document.getElementById("fog").style.display = 'none';
-
 }
 
 function displayWeatherIcon(iconClass) {
