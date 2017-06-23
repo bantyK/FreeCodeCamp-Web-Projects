@@ -1,5 +1,7 @@
 body {
   background-color: #CAE5E6;
+  background: url("https://cdn.dribbble.com/users/3032/screenshots/27047/shot_1276353357.png");
+  background-size: cover;
 }
 
 .container {
@@ -54,12 +56,13 @@ body {
   padding: 0;
   border-right: 1px solid #3F4B58;
   border-bottom: 1px solid #3F4B58;
-  color: #ECF0F1;
   text-align: center;
   font-size: 150%;
   line-height: 50px;
   font-family: 'Roboto', sans-serif;
+  color: rgba(255, 255, 255, 0.6);
 }
+
 
 p.symbol {
   color: #515C69;
