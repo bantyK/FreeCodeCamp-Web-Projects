@@ -45,6 +45,10 @@ body {
   margin: 0;
   padding: 0;
 }
+.display input:active{
+  outline: none;
+
+}
 .row{
   float: left;
 }
@@ -61,8 +65,12 @@ body {
   line-height: 50px;
   font-family: 'Roboto', sans-serif;
   color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
 }
 
+.row p:active{
+  background-color: #33404F;
+}
 
 p.symbol {
   color: #515C69;
